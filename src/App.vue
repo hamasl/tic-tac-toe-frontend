@@ -30,7 +30,6 @@
   <p>
     Enter board dimension (3 is default and min dimension 10 is max dimension)
   </p>
-  <!-- Dont want v-model since the boarDimension should not be able to change midgame -->
   <input v-model="inputVal" />
   <button id="newGameBtn" @click="newGame">New game</button>
   <p v-if="boardDimension < 3 || isNaN(boardDimension) || boardDimension > 10">
@@ -72,7 +71,6 @@ export default {
       //Returning if place is already taken
       if (this.board[rowIndex][placeIndex] !== "") return;
       this.board[rowIndex][placeIndex] = this.symbol;
-      //Have to check for win before turning change whos turn it is
       if (this.checkForWin()) {
         this.gameOver = true;
         this.players[this.isCirclesTurn ? 0 : 1].points++;
@@ -129,7 +127,6 @@ export default {
       );
     },
     newGame() {
-      //Only converting here so that we avoid having the board dimension change midgame
       this.boardDimension = parseInt(this.inputVal);
       if (
         isNaN(this.boardDimension) ||
